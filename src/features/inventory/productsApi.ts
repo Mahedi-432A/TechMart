@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// ১. প্রোডাক্টের টাইপ ডিফাইন করা (যেন টাইপস্ক্রিপ্ট ভুল না ধরে)
 export interface Product {
   id: number;
   title: string;
@@ -8,9 +7,9 @@ export interface Product {
   thumbnail: string;
   category: string;
   stock: number;
+  description: string; // ডিজাইনে লাগতে পারে
 }
 
-// API থেকে যে রেসপন্স আসবে তার স্ট্রাকচার
 interface ProductsResponse {
   products: Product[];
   total: number;
@@ -18,17 +17,43 @@ interface ProductsResponse {
   limit: number;
 }
 
-// ২. মেইন API স্লাইস (Fake Database Connection)
+// DummyJSON এখন ক্যাটাগরি অবজেক্ট আকারে দেয়
+export interface Category {
+  slug: string;
+  name: string;
+  url: string;
+}
+
 export const productsApi = createApi({
-  reducerPath: "productsApi", // স্টোরে এই নামেই থাকবে
-  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com/" }), // <--- এই URL থেকেই ডাটা আসবে
+  reducerPath: "productsApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com/" }),
   endpoints: (builder) => ({
-    // সব প্রোডাক্ট আনার জন্য কুয়েরি
+    // ১. সব প্রোডাক্ট আনা
     getProducts: builder.query<ProductsResponse, void>({
-      query: () => "products?limit=20", // প্রথম ২০টি প্রোডাক্ট
+      query: () => "products?limit=100", // ডেমো হিসেবে ১০০টা আনছি
+    }),
+    
+    // ২. সার্চ করা (Server Side Search)
+    searchProducts: builder.query<ProductsResponse, string>({
+      query: (searchTerm) => `products/search?q=${searchTerm}`,
+    }),
+
+    // ৩. সব ক্যাটাগরি লিস্ট আনা (ড্রপডাউনের জন্য)
+    getCategories: builder.query<Category[], void>({
+      query: () => "products/categories",
+    }),
+
+    // ৪. নির্দিষ্ট ক্যাটাগরির প্রোডাক্ট আনা
+    getProductsByCategory: builder.query<ProductsResponse, string>({
+      query: (categorySlug) => `products/category/${categorySlug}`,
     }),
   }),
 });
 
-// ৩. অটোমেটিক হুক এক্সপোর্ট
-export const { useGetProductsQuery } = productsApi;
+// হুক এক্সপোর্ট
+export const { 
+  useGetProductsQuery, 
+  useSearchProductsQuery, 
+  useGetCategoriesQuery, 
+  useGetProductsByCategoryQuery 
+} = productsApi;
