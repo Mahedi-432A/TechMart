@@ -5,6 +5,7 @@ import { ActionCreators } from "redux-undo"; // Undo/Redo অ্যাকশন
 import { Button } from "@/components/ui/button";
 import { Trash2, Plus, Minus, RotateCcw, RotateCw } from "lucide-react";
 import CheckoutModal from "./CheckoutModal";
+import { toast } from "sonner";
 
 const CartPanel = () => {
   const dispatch = useAppDispatch();
@@ -20,8 +21,11 @@ const CartPanel = () => {
 
   const handleConfirmPayment = () => {
     dispatch(clearCart());
-    // এখানে চাইলে টোস্ট বা অ্যালার্ট দেখাতে পারেন "Order Successful!"
-    alert("Payment Successful! Cart Cleared.");
+    // টোস্ট মেসেজ
+    toast.success("Payment Successful!", {
+      description: "Receipt has been printed.",
+      duration: 3000,
+    });
   };
 
   return (

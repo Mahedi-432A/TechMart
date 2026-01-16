@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# 🛒 TechMart - Enterprise POS System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![TechMart Banner](https://via.placeholder.com/1200x600?text=TechMart+Dashboard+Preview) 
+*(Note: Replace this link with your actual screenshot)*
 
-Currently, two official plugins are available:
+A robust, scalable, and offline-capable **Point of Sale (POS)** application designed for modern retail businesses. Built with high-performance technologies to ensure speed, reliability, and complex state management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
+[Link to your Vercel/Netlify deploy]
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚧 Project Status: Active Development (Beta)
+This project is currently in the **Advanced Frontend Phase**. 
+- ✅ **Completed:** Core POS Logic, Inventory Management, Cart System (Undo/Redo), Persistence, Invoice Printing.
+- ⏳ **In Progress:** Backend Integration, Authentication, Multi-user support.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ Key Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🛍️ Point of Sale (POS)
+- **Fast Transactions:** Optimized product grid with server-side filtering & search.
+- **Smart Cart System:** Add/remove items with automatic tax & total calculation.
+- **Undo/Redo:** Mistakenly deleted an item? Bring it back instantly with `redux-undo`.
+- **Offline Persistence:** Cart data survives browser refresh (using `redux-persist`).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 📦 Inventory & Management
+- **Real-time Updates:** Powered by **RTK Query** for efficient caching and data fetching.
+- **Stock Alerts:** Visual indicators for low-stock items.
+- **Dashboard Analytics:** Interactive charts (Recharts) for sales visualization.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🖨️ Invoicing
+- **Thermal Print Ready:** Generates professional receipts with auto-print functionality.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🛠️ Tech Stack
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Framework:** React (Vite) + TypeScript
+- **State Management:** Redux Toolkit (RTK) + RTK Query
+- **Styling:** Tailwind CSS + Shadcn/UI
+- **Data Visualization:** Recharts
+- **Utilities:** React Hook Form, Zod, Redux-Undo, React-to-Print
+
+---
+
+## 💻 Getting Started
+
+Follow these steps to run the project locally:
+
+1. **Clone the repository**
+   ```bash
+   git clone [https://github.com/yourusername/techmart-pos.git](https://github.com/yourusername/techmart-pos.git)
