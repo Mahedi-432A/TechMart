@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { addToCart, removeFromCart, deleteItem, clearCart } from "./cartSlice";
 import { ActionCreators } from "redux-undo"; // Undo/Redo অ্যাকশন
 import { Button } from "@/components/ui/button";
 import { Trash2, Plus, Minus, RotateCcw, RotateCw } from "lucide-react";
+import CheckoutModal from "./CheckoutModal";
 
 const CartPanel = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +15,14 @@ const CartPanel = () => {
   
   // Undo/Redo হিস্ট্রি চেক করা
   const { past, future } = useAppSelector((state) => state.cart);
+
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+
+  const handleConfirmPayment = () => {
+    dispatch(clearCart());
+    // এখানে চাইলে টোস্ট বা অ্যালার্ট দেখাতে পারেন "Order Successful!"
+    alert("Payment Successful! Cart Cleared.");
+  };
 
   return (
     <div className="flex flex-col h-full bg-white border-l shadow-xl w-96">
@@ -93,10 +103,22 @@ const CartPanel = () => {
             <span>Total:</span>
             <span>${grandTotal.toFixed(2)}</span>
         </div>
-        <Button className="w-full mt-4 bg-green-600 hover:bg-green-700" size="lg">
+        <Button 
+            className="w-full mt-4 bg-green-600 hover:bg-green-700" 
+            size="lg"
+            disabled={items.length === 0} // কার্ট খালি থাকলে বাটন কাজ করবে না
+            onClick={() => setIsCheckoutOpen(true)}
+        >
             Checkout Now
         </Button>
       </div>
+
+      <CheckoutModal 
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        onConfirm={handleConfirmPayment}
+        cartData={{ items, totalAmount, tax, grandTotal }}
+      />
     </div>
   );
 };
